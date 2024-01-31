@@ -49,7 +49,7 @@ files = files.filter(function(file){
 })
 console.log("files.length:", files.length)
 
-// Iterate.
+// Iterate
 files
 // .slice(0, 1)
 .forEach(function(file, ithFile){
@@ -57,7 +57,7 @@ files
   const fid = file.split(".mid")[0]
   console.log("fid:", fid)
   try {
-    // Array to record propoertion of segments for which all notes are inside.
+    // Array to record proportion of segments for which all notes are inside.
     let insideArr = []
     const mi = new mm.MidiImport(path.join(mainPath["inDir"], file))
     const seg = mu.segment(mi.points, true, param.ontimeIndex, param.durIndex)
@@ -65,30 +65,38 @@ files
     console.log("seg.slice(0, 5):", seg.slice(0, 5))
     // Extract feature.
     seg.forEach(function(s){
-      const ans = everything_inside(s, param.ontimeIndex, param.durIndex)
+      const ans = every_inside(s, param.ontimeIndex, param.durIndex)
       insideArr.push(ans)
     })
     console.log("insideArr:", insideArr)
     // Count number of trues.
-
-    // console.log("trues:", trues)
-    // console.log("insideArr.length:", insideArr.length)
+    const trues = insideArr.reduce(function(a, b){
+      if (b){
+        return a + 1
+      }
+      else {
+        return a
+      }
+    }, 0)
+    console.log("trues:", trues)
+    console.log("insideArr.length:", insideArr.length)
   }
   catch (e) {
     console.log(e)
   }
 })
 
-// Plot/visualize
-
-
-// Write output(s) to file.
-
 
 // Helper function
 function everything_inside(
   givenSegment, ontimeIndex, durIndex
 ){
+  // I've coded this function with forEach() to demonstrate its use, but it
+  // would be better coded with every(), which is a JS array method to test
+  // whether every element of an array passes a test, and will stop early as
+  // soon as one element does not pass. I've put this more efficient approach
+  // below.
+
   // console.log("givenSegment.points:", givenSegment.points)
   // console.log(givenSegment.ontime, givenSegment.offtime)
   let ans = true
@@ -96,11 +104,30 @@ function everything_inside(
   givenSegment.points.forEach(function(pt){
     // If conditional concerning pt[ontimeIndex] and ontime,
     // and  pt[ontimeIndex] + pt[durIndex] and offtime.
-
-    // If the conditional evaluates to true, switch ans to false.
-
+    if (
+      pt[ontimeIndex] < givenSegment.ontime ||
+      pt[ontimeIndex] + pt[durIndex] > givenSegment.offtime
+    ){
+      // If the conditional evaluates to true, return false from the overall function.
+      ans = false
+    }
   })
-  // If we get here without ans ever being switched to false, it will remain
-  // true and each point is "inside the segment".
+  // If we get here with ans unaltered, then each note is "inside the segment",
+  // and true will be returned.
   return ans
+}
+
+
+function every_inside(
+  givenSegment, ontimeIndex, durIndex
+){
+  // console.log("givenSegment.points:", givenSegment.points)
+  // console.log(givenSegment.ontime, givenSegment.offtime)
+  // givenSegment has properties ontime, offtime, and points.
+  return givenSegment.points.every(function(pt){
+    // If conditional concerning pt[ontimeIndex] and ontime,
+    // and  pt[ontimeIndex] + pt[durIndex] and offtime.
+    return pt[ontimeIndex] >= givenSegment.ontime &&
+    pt[ontimeIndex] + pt[durIndex] <= givenSegment.offtime
+  })
 }

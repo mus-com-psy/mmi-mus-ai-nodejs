@@ -47,7 +47,7 @@ files = files.filter(function(file){
 })
 console.log("files.length:", files.length)
 
-// Iterate
+// Iterate.
 files
 // .slice(0, 3)
 .forEach(function(file, ithFile){
@@ -71,7 +71,7 @@ files
   }
 })
 
-// Plot/visualize
+// Plot/visualize.
 let data = [{
   "x": myArr,
   "type": "histogram",

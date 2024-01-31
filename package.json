@@ -8,7 +8,8 @@
     "minimist": "^1.2.8",
     "nodeplotlib": "^1.1.2",
     "maia-markov": "^0.0.73",
-    "maia-util": "^0.3.10"
+    "maia-util": "^0.3.10",
+    "seed-random": "^2.2.0"
   },
   "engines": {
     "node": "20.x"
