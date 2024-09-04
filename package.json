@@ -1,5 +1,5 @@
 {
-  "name": "mmi-mus-ai-nodejs",
+  "name": "mue-mus-ai-nodejs",
   "version": "0.0.0",
   "description": "Node.js code for MMI Music + AI",
   "scripts": {},
@@ -15,7 +15,7 @@
     "node": "20.x"
   },
   "repository": {
-    "url": "git@github.com:mus-com-psy/mmi-mus-ai-nodejs.git"
+    "url": "git@github.com:mus-com-psy/mue-mus-ai-nodejs.git"
   },
   "license": "AGPL-3.0-or-later",
   "keywords": [

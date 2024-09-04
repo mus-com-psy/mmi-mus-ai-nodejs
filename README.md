@@ -1,2 +1,2 @@
-# mmi-mus-ai-nodejs
-Node.js code for MMI Music + AI
+# mue-mus-ai-nodejs
+Node.js code for MUE Music + AI
