@@ -1,6 +1,3 @@
-console.log(0.1 + 0.2)
-return
-
 // Copyright Tom Collins, 21.1.2024
 // Pre-processing MIDI files, calculating their mean MIDI note number, and
 // writing them to file.
